@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AceEditor from 'react-ace';
 
 import 'brace/mode/golang';
+import 'brace/ext/language_tools';
 import 'brace/theme/terminal';
 import 'brace/theme/twilight';
 
@@ -31,7 +32,6 @@ export default class CodeEditor extends Component {
                 highlightActiveLine={true}
                 fontSize={14}
                 setOptions={{
-                    enableBasicAutocompletion: false,
                     enableLiveAutocompletion: true,
                     showLineNumbers: true,
                     tabSize: 4,

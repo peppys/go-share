@@ -7,8 +7,11 @@ import 'brace/theme/terminal';
 export default class CodeEditor extends Component {
 
     render() {
+        const { evaluation } = this.props
+
         return (
             <AceEditor
+                value={evaluation}
                 mode="golang"
                 theme="terminal"
                 name="UNIQUE_ID_OF_DIV"

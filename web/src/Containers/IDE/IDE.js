@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CodeEditor from '../../Components/CodeEditor'
 import Terminal from '../../Components/Terminal'
+import EditorAPI from '../../API/Editor'
 
 export default class IDE extends Component {
     componentWillMount() {
@@ -11,27 +12,33 @@ export default class IDE extends Component {
                 const { connection } = this.props.editor
 
                 connection.onmessage = e => {
-                    const message = JSON.parse(e.data)
-                    console.log(message)
+                    const messagePayload = JSON.parse(e.data)
+                    console.log(messagePayload)
 
-                    updateEditor(message.author, message.code)
+                    if (messagePayload.type === EditorAPI.MESSAGE_TYPE_CODE) {
+                        updateEditor(messagePayload.author, messagePayload.message)
+                    }
                 }
             })
     }
     evaluate() {
+        const { code } = this.props.editor
+        const { evaluate } = this.props
+
+        evaluate(code)
         console.log("Evaluating...")
     }
 
     render() {
         const { syncChanges } = this.props
-        const { code } = this.props.editor;
+        const { code, evaluation } = this.props.editor;
 
         return (
             <div>
-                <button onClick={this.evaluate}>Evaluate</button>
+                <button onClick={this.evaluate.bind(this)}>Evaluate</button>
                 {/* TODO - make side by side */}
-                <CodeEditor code={code} onChange={syncChanges}/>
-                <Terminal />
+                <CodeEditor code={code} onChange={syncChanges} />
+                <Terminal evaluation={evaluation} />
             </div>
         )
     }
