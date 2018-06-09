@@ -48,8 +48,8 @@ func (s *Server) handleWebSocketConnection(w http.ResponseWriter, r *http.Reques
 	defer ws.Close()
 
 	// Send me the most recent message
-	if s.hub.LastMessage != nil {
-		ws.WriteJSON(s.hub.LastMessage)
+	if s.hub.LastMessage[topic] != nil {
+		ws.WriteJSON(s.hub.LastMessage[topic])
 	}
 
 	s.hub.SubscribeAndListen(topic, ws)

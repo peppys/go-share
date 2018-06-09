@@ -10,7 +10,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Go Share</h1>
+          <h1 className="App-title">Go Share <a href={window.location.href}>{window.location.href} </a></h1>
         </header>
 
         <IDE />
