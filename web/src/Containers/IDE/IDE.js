@@ -13,27 +13,37 @@ export default class IDE extends Component {
                 connection.onmessage = e => {
                     const messagePayload = JSON.parse(e.data)
 
-                    updateEditor(messagePayload.code, messagePayload.evaluating, messagePayload.evaluation)
+                    updateEditor(messagePayload.sender, messagePayload.code, messagePayload.evaluating, messagePayload.evaluation)
                 }
             })
     }
+
     evaluate() {
-        const { code } = this.props.editor
+        const { code, user } = this.props.editor
         const { evaluate } = this.props
 
-        evaluate('Default Author', code)
+        evaluate(user, code)
+    }
+
+    onUserChange(e) {
+        const { setUser } = this.props
+        setUser(e.target.value)
     }
 
     render() {
         const { syncChanges } = this.props
-        const { code, evaluation } = this.props.editor;
+        const { code, evaluation, user, updates } = this.props.editor;
 
         return (
             <div>
+                <input onChange={this.onUserChange.bind(this)} value={user}/>
                 <button onClick={this.evaluate.bind(this)}>Evaluate</button>
+                <span>{updates}</span>
                 {/* TODO - make side by side */}
-                <CodeEditor code={code} onChange={syncChanges} />
-                <Terminal evaluation={evaluation} />
+                <div>
+                    <CodeEditor code={code} onChange={syncChanges} />
+                    <Terminal evaluation={evaluation} />
+                </div>
             </div>
         )
     }

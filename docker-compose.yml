@@ -1,0 +1,18 @@
+version: '3'
+services:
+  server:
+    build: ./server/
+    environment:
+      - PORT=8000
+    ports:
+      - 8000:8000
+  
+  web:
+    build: ./web/
+    environment:
+      - REACT_APP_API_BASE_URL=http://127.0.0.1:8000
+      - REACT_APP_WEB_SOCKET_BASE_URL=ws://127.0.0.1:8000
+    ports:
+      - 3000:3000
+    depends_on: 
+      - server

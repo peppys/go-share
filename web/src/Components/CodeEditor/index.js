@@ -3,8 +3,7 @@ import AceEditor from 'react-ace';
 
 import 'brace/mode/javascript';
 import 'brace/ext/language_tools';
-import 'brace/theme/terminal';
-import 'brace/theme/twilight';
+import 'brace/theme/monokai';
 
 export default class CodeEditor extends Component {
     onChange(code) {
@@ -20,7 +19,7 @@ export default class CodeEditor extends Component {
             <AceEditor
                 value={code}
                 mode="javascript"
-                theme="twilight"
+                theme="monokai"
                 onChange={this.onChange.bind(this)}
                 name="UNIQUE_ID_OF_DIV"
                 editorProps={{ $blockScrolling: true }}

@@ -10,6 +10,7 @@ export default {
         return new Promise((resolve, reject) => {
             const endpoint = `${WEB_SOCKET_BASE_URL}/ws`
 
+            console.log(`Attempting to connect to: ${endpoint}?topic=${topic}`)
             const conn = new WebSocket(`${endpoint}?topic=${topic}`)
 
             conn.onopen = e => {

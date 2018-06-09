@@ -8,7 +8,7 @@ import (
 
 // Message defines our message object
 type Message struct {
-	Sender     string `json:"sender`
+	Sender     string `json:"sender"`
 	Code       string `json:"code"`
 	Evaluation string `json:"evaluation"`
 	Evaluating bool   `json:"evaluating"`

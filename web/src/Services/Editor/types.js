@@ -5,3 +5,5 @@ export const UPDATE_EDITOR = 'actions/UPDATE_EDITOR'
 
 export const EVALUATING_CODE = 'actions/EVALUATING_CODE'
 export const EVALUATING_CODE_COMPLETE = 'actions/EVALUATING_CODE_COMPLETE'
+
+export const SET_USER = 'actions/SET_USER'
