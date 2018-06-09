@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { API_BASE_URL, WEB_SOCKET_BASE_URL } from '../../Config'
 
 export default {
     MESSAGE_TYPE_CODE: 'MESSAGE_TYPE_CODE',
@@ -7,7 +8,7 @@ export default {
 
     connect: async topic => {
         return new Promise((resolve, reject) => {
-            const endpoint = 'ws://localhost:8000/ws'
+            const endpoint = `${WEB_SOCKET_BASE_URL}/ws`
 
             const conn = new WebSocket(`${endpoint}?topic=${topic}`)
 
@@ -24,7 +25,7 @@ export default {
             data: {
                 code
             },
-            baseURL: 'http://localhost:8000',
+            baseURL: API_BASE_URL,
             timeout: 100000,
             headers: {
                 'Content-Type': 'application/json',
