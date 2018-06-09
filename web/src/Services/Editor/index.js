@@ -10,7 +10,7 @@ export const connectToServer = () => async dispatch => {
         type: CONNECTING_TO_SERVER
     })
 
-    const connection = await EditorAPI.connect(window.location.pathname)
+    const connection = await EditorAPI.connect(window.location.pathname.substr(1))
 
     dispatch({
         type: CONNECTING_TO_SERVER_COMPLETE,

@@ -27,7 +27,7 @@ spec:
   selector:
     app: go-share-server
   ports:
-    - port: 8000
+    - port: 8080
       targetPort: 8000
 ---
 # Web deployment
@@ -44,14 +44,14 @@ spec:
     spec:
       containers:
       - name: go-share-web
-        image: xpeppy/go-share-web:latest
+        image: xpeppy/go-share-web-demo:latest
         ports:
         - containerPort: 3000
         env:
         - name: REACT_APP_API_BASE_URL
-          value: "http://127.0.0.1:8000"
+          value: "http://127.0.0.1:8080"
         - name: REACT_APP_WEB_SOCKET_BASE_URL
-          value: "ws://127.0.0.1:8000"
+          value: "ws://127.0.0.1:8080"
 ---
 kind: Service
 apiVersion: v1
@@ -65,4 +65,5 @@ spec:
       port: 80
       targetPort: 3000
   type: LoadBalancer
+  loadBalancerIP: 104.198.197.75
 ---

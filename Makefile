@@ -1,9 +1,9 @@
 build-images:
-	docker build -t xpeppy/go-share-server server
-	docker build -t xpeppy/go-share-web web
+	docker build -t xpeppy/go-share-server-demo server
+	docker build -t xpeppy/go-share-web-demo web
 push-images:
-	docker push xpeppy/go-share-server
-	docker push xpeppy/go-share-web
+	docker push xpeppy/go-share-server-demo
+	docker push xpeppy/go-share-web-demo
 gcloud-credentials:
 	gcloud config set project personal-200804
 	gcloud config set compute/zone us-central1-a

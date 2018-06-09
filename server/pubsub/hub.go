@@ -15,19 +15,19 @@ type Message struct {
 }
 
 type Hub struct {
-	LastMessage map[string]*Message
+	LastMessage *Message
 	connections map[string][]*websocket.Conn
 }
 
 func NewHub() *Hub {
 	return &Hub{
-		map[string]*Message{},
+		nil,
 		map[string][]*websocket.Conn{},
 	}
 }
 
 func (h *Hub) Publish(topic string, m Message, sender *websocket.Conn) {
-	h.LastMessage[topic] = &m
+	h.LastMessage = &m
 
 	for _, connection := range h.connections[topic] {
 		if connection != sender {
