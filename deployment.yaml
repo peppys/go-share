@@ -1,0 +1,68 @@
+# Server deployment
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: go-share-server-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: go-share-server
+    spec:
+      containers:
+      - name: go-share-server
+        image: xpeppy/go-share-server:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: PORT
+          value: "8000"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: go-share-server-service
+spec:
+  selector:
+    app: go-share-server
+  ports:
+    - port: 8000
+      targetPort: 8000
+---
+# Web deployment
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: go-share-web-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: go-share-web
+    spec:
+      containers:
+      - name: go-share-web
+        image: xpeppy/go-share-web:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: REACT_APP_API_BASE_URL
+          value: "http://127.0.0.1:8000"
+        - name: REACT_APP_WEB_SOCKET_BASE_URL
+          value: "ws://127.0.0.1:8000"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: go-share-web-service
+spec:
+  selector:
+    app: go-share-web
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: LoadBalancer
+---
