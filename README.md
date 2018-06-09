@@ -2,11 +2,20 @@
 GoShare - Collaborative Go Editor
 
 
-![](http://g.recordit.co/5ptuwxgAPO.gif)
+![](./demo.gif)
 
-# Intrsuctions
+# Instructions
 ```
 docker-compose up
 ```
+That's it!
 
-And check it out on http://localhost:3000/goshare!
+Check it out on http://localhost:3000/goshare!
+
+
+## Technologies
+- Golang
+- React
+- Redux
+- Websockets
+- Simple pubsub implementation
