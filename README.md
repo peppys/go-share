@@ -2,7 +2,7 @@
 GoShare - Collaborative Go Editor
 
 
-![Alt Text](http://g.recordit.co/5ptuwxgAPO.gif)
+![](http://g.recordit.co/5ptuwxgAPO.gif)
 
 # Intrsuctions
 ```
