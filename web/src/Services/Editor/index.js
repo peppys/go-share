@@ -18,41 +18,66 @@ export const connectToServer = () => async dispatch => {
     })
 }
 
-export const syncChanges = (author, code) => dispatch => {
+export const syncChanges = (code) => dispatch => {
     // WebSocket connection is in the state right now LOL
-    const connection = Store.getState().editor.connection
+    const state = Store.getState().editor
 
-    connection.send(JSON.stringify({
-        type: EditorAPI.MESSAGE_TYPE_CODE,
-        author: author,
-        message: code
+    state.connection.send(JSON.stringify({
+        sender: 'Default',
+        code: code,
+        evaluating: state.evaluating,
+        evaluation: state.evaluation
     }))
 
+    dispatch(updateEditor(code, state.evaluating, state.evaluation))
+}
+
+export const updateEditor = (code, evaluating, evaluation) => dispatch => {
     dispatch({
         type: UPDATE_EDITOR,
-        author: author,
-        latestCode: code
+        code,
+        evaluating,
+        evaluation
     })
 }
 
-export const updateEditor = (author, code) => dispatch => {
-    dispatch({
-        type: UPDATE_EDITOR,
-        author: author,
-        latestCode: code
-    })
+export const evaluate = () => async dispatch => {
+    // WebSocket connection is in the state right now LOL
+    const connection = Store.getState().editor.connection
+    const state = Store.getState().editor
+
+    dispatch(evaluating('Default User'))
+
+    connection.send(JSON.stringify({
+        sender: 'Default',
+        code: state.code,
+        evaluating: true,
+        evaluation: state.evaluation
+    }))
+
+    const result = await EditorAPI.evaluate(state.code)
+
+    dispatch(evaluatingComplete('Default User', result.data.response))
+
+    connection.send(JSON.stringify({
+        sender: 'Default',
+        code: state.code,
+        evaluating: false,
+        evaluation: result.data.response
+    }))
 }
 
-export const evaluate = code => async dispatch => {
+export const evaluating = (author) => dispatch => {
     dispatch({
         type: EVALUATING_CODE,
-        code: code
+        author
     })
+}
 
-    const result = await EditorAPI.evaluate(code)
-
+export const evaluatingComplete = (author, result) => dispatch => {
     dispatch({
         type: EVALUATING_CODE_COMPLETE,
-        result: result.data.response
+        author,
+        result
     })
 }

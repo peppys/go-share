@@ -9,6 +9,7 @@
     "@material-ui/core": "^1.2.0",
     "@material-ui/icons": "^1.1.0",
     "axios": "^0.18.0",
+    "eval": "^0.1.2",
     "react": "^16.4.0",
     "react-ace": "^6.1.1",
     "react-dom": "^16.4.0",

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import CodeEditor from '../../Components/CodeEditor'
 import Terminal from '../../Components/Terminal'
-import EditorAPI from '../../API/Editor'
 
 export default class IDE extends Component {
     componentWillMount() {
@@ -13,11 +12,8 @@ export default class IDE extends Component {
 
                 connection.onmessage = e => {
                     const messagePayload = JSON.parse(e.data)
-                    console.log(messagePayload)
 
-                    if (messagePayload.type === EditorAPI.MESSAGE_TYPE_CODE) {
-                        updateEditor(messagePayload.author, messagePayload.message)
-                    }
+                    updateEditor(messagePayload.code, messagePayload.evaluating, messagePayload.evaluation)
                 }
             })
     }
@@ -25,8 +21,7 @@ export default class IDE extends Component {
         const { code } = this.props.editor
         const { evaluate } = this.props
 
-        evaluate(code)
-        console.log("Evaluating...")
+        evaluate('Default Author', code)
     }
 
     render() {

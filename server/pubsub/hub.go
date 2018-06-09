@@ -6,17 +6,12 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-const (
-	MessageTypeCode       = "MESSAGE_TYPE_CODE"
-	MessageTypeEvaluating = "MESSAGE_TYPE_EVALUATING"
-	MessageTypeEvaluation = "MESSAGE_TYPE_EVALUATION"
-)
-
 // Message defines our message object
 type Message struct {
-	Type    string `json:"type"`
-	Author  string `json:"author"`
-	Message string `json:"message"`
+	Sender     string `json:"sender`
+	Code       string `json:"code"`
+	Evaluation string `json:"evaluation"`
+	Evaluating bool   `json:"evaluating"`
 }
 
 type Hub struct {

@@ -3,7 +3,12 @@ import {
     EVALUATING_CODE, EVALUATING_CODE_COMPLETE
 } from './types'
 
-const initialState = {};
+const initialState = {
+    loading: true, 
+    code: '',
+    evaluating: false,
+    evaluation: ''
+};
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
@@ -14,7 +19,7 @@ export default function reducer(state = initialState, action) {
             return { ...state, loading: false, connection: action.connection, code: action.latestCode }
 
         case UPDATE_EDITOR:
-            return { ...state, code: action.latestCode }
+            return { ...state, code: action.code, evaluating: action.evaluating, evaluation: action.evaluation }
 
         case EVALUATING_CODE:
             return { ...state, evaluating: true }

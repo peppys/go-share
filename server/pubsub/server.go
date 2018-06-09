@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/gorilla/websocket"
+	"github.com/robertkrimen/otto"
 )
 
 type Server struct {
@@ -55,8 +56,6 @@ func (s *Server) handleWebSocketConnection(w http.ResponseWriter, r *http.Reques
 }
 
 func (s *Server) handleEvaluate(w http.ResponseWriter, r *http.Request) {
-	// Enable CORS
-
 	var evaluatePayload struct {
 		Code string
 	}
@@ -69,10 +68,20 @@ func (s *Server) handleEvaluate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	vm := otto.New()
+	result, err := vm.Run(evaluatePayload.Code)
+
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Error evaluating: %s", err.Error()), 500)
+		return
+	}
+
 	json.NewEncoder(w).Encode(map[string]string{
-		"response": evaluatePayload.Code,
+		"response": fmt.Sprintf("%s", result),//evaluatePayload.Code,
 	})
+
 	log.Println(evaluatePayload.Code)
+	log.Println(fmt.Sprintf("%s", result))
 }
 
 // allowCORS allows Cross Origin Resoruce Sharing from any origin.

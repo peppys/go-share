@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AceEditor from 'react-ace';
 
-import 'brace/mode/golang';
+import 'brace/mode/javascript';
 import 'brace/ext/language_tools';
 import 'brace/theme/terminal';
 import 'brace/theme/twilight';
@@ -10,9 +10,7 @@ export default class CodeEditor extends Component {
     onChange(code) {
         const { onChange } = this.props
 
-        console.log('change', code);
-
-        onChange('Default User', code)
+        onChange(code)
     }
 
     render() {
@@ -21,7 +19,7 @@ export default class CodeEditor extends Component {
         return (
             <AceEditor
                 value={code}
-                mode="golang"
+                mode="javascript"
                 theme="twilight"
                 onChange={this.onChange.bind(this)}
                 name="UNIQUE_ID_OF_DIV"
