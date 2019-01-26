@@ -1,5 +1,5 @@
 # go-share
-GoShare - Collaborative Go Editor
+GoShare - Collaborative JavaScript Editor
 
 
 ![](./demo.gif)
